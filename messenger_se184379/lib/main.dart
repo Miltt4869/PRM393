@@ -29,7 +29,7 @@ class User {
   final String avatarUrl;
   final bool isActive;
 
-  User({required this.name, required this.avatarUrl, this.isActive = false});
+  const User({required this.name, required this.avatarUrl, this.isActive = false});
 }
 
 class ChatMessage {
@@ -38,7 +38,7 @@ class ChatMessage {
   final String time;
   final bool isUnread;
 
-  ChatMessage({
+  const ChatMessage({
     required this.sender,
     required this.lastMessage,
     required this.time,
@@ -46,12 +46,12 @@ class ChatMessage {
   });
 }
 
-final User currentUser = User(
+const User currentUser = User(
   name: "Tôi",
   avatarUrl: "https://picsum.photos/id/1005/150/150",
 );
 
-final List<User> activeUsers = [
+const List<User> activeUsers = [
   User(name: "Friend Anh", avatarUrl: "https://picsum.photos/id/1011/150/150", isActive: true),
   User(name: "Friend Bằng", avatarUrl: "https://picsum.photos/id/1012/150/150", isActive: true),
   User(name: "Friend Sơn", avatarUrl: "https://picsum.photos/id/1027/150/150", isActive: true),
@@ -62,7 +62,7 @@ final List<User> activeUsers = [
   User(name: "Friend L", avatarUrl: "https://picsum.photos/id/349/150/150", isActive: true),
 ];
 
-final List<ChatMessage> allChats = [
+const List<ChatMessage> allChats = [
   ChatMessage(
     sender: User(name: "Anh", avatarUrl: "https://picsum.photos/id/1011/150/150"),
     lastMessage: "Bạn: Hiiii bạn",
@@ -70,51 +70,51 @@ final List<ChatMessage> allChats = [
     isUnread: true,
   ),
   ChatMessage(
-    sender: User(name: "Phương Linh", avatarUrl: "https://picsum.photos/id/447/150/150"),
+    sender: User(name: "Phương Linh", avatarUrl: "https://picsum.photos/id/1015/150/150"),
     lastMessage: "Bạn đã gửi một file đính kèm",
     time: "07:18",
   ),
   ChatMessage(
-    sender: User(name: "Yến", avatarUrl: "https://picsum.photos/id/445/150/150"),
+    sender: User(name: "Yến", avatarUrl: "https://picsum.photos/id/1016/150/150"),
     lastMessage: "Bạn đã gửi một nhãn dán.",
     time: "T.2",
   ),
   ChatMessage(
-    sender: User(name: "2026 đi đâu", avatarUrl: "https://picsum.photos/id/453/150/150"),
+    sender: User(name: "2026 đi đâu", avatarUrl: "https://picsum.photos/id/1018/150/150"),
     lastMessage: "Friend 4: tiếng nhật ...",
     time: "T.2",
     isUnread: true,
   ),
   ChatMessage(
-    sender: User(name: "Tam Ca", avatarUrl: "https://picsum.photos/id/449/150/150"),
+    sender: User(name: "Tam Ca", avatarUrl: "https://picsum.photos/id/1019/150/150"),
     lastMessage: "Friend đã gửi một file đính kèm.",
     time: "T.6",
   ),
   ////////
   ChatMessage(
-    sender: User(name: "Tuấn", avatarUrl: "https://picsum.photos/id/1011/150/150"),
+    sender: User(name: "Tuấn", avatarUrl: "https://picsum.photos/id/1020/150/150"),
     lastMessage: "Bạn: Hiiii bạn",
     time: "07:20",
     isUnread: true,
   ),
   ChatMessage(
-    sender: User(name: "Phương", avatarUrl: "https://picsum.photos/id/447/150/150"),
+    sender: User(name: "Phương", avatarUrl: "https://picsum.photos/id/1021/150/150"),
     lastMessage: "Bạn đã gửi một file đính kèm",
     time: "07:18",
   ),
   ChatMessage(
-    sender: User(name: "Hiền", avatarUrl: "https://picsum.photos/id/445/150/150"),
+    sender: User(name: "Hiền", avatarUrl: "https://picsum.photos/id/1022/150/150"),
     lastMessage: "Bạn đã gửi một nhãn dán.",
     time: "06:09",
   ),
   ChatMessage(
-    sender: User(name: "Friend 4", avatarUrl: "https://picsum.photos/id/453/150/150"),
+    sender: User(name: "Friend 4", avatarUrl: "https://picsum.photos/id/1023/150/150"),
     lastMessage: "Friend 4: Đâu rồi ...",
     time: "T.2",
     isUnread: true,
   ),
   ChatMessage(
-    sender: User(name: "Hôm nay ăn gì", avatarUrl: "https://picsum.photos/id/449/150/150"),
+    sender: User(name: "Hôm nay ăn gì", avatarUrl: "https://picsum.photos/id/1024/150/150"),
     lastMessage: "Friend đã gửi một file đính kèm.",
     time: "T.6",
   ),
@@ -157,20 +157,12 @@ class _MainNavigatorScreenState extends State<MainNavigatorScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            label: 'chat',
+            label: 'Đoạn chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'People',
+            label: 'Danh bạ',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.notifications),
-          //   label: 'Thông báo',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.menu),
-          //   label: 'Menu',
-          // ),
         ],
       ),
     );
@@ -389,72 +381,88 @@ class _ChatScreenState extends State<ChatScreen> {
 
   // Widget hiển thị mục "Tạo tin"
   Widget _buildAddStoryItem() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(currentUser.avatarUrl),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
-                  ),
-                  child: const Icon(Icons.add, size: 18, color: Colors.black),
+    return SizedBox(
+      width: 75,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(currentUser.avatarUrl),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          const Text("Tạo tin", style: TextStyle(fontSize: 12, color: Colors.grey)),
-        ],
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                    child: const Icon(Icons.add, size: 18, color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              "Tạo tin",
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
 
   // Widget hiển thị User đang active
   Widget _buildActiveUserItem(User user) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(user.avatarUrl),
-              ),
-              if (user.isActive)
-                Positioned(
-                  bottom: 2,
-                  right: 2,
-                  child: Container(
-                    width: 14,
-                    height: 14,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
+    return SizedBox(
+      width: 75,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(user.avatarUrl),
+                ),
+                if (user.isActive)
+                  Positioned(
+                    bottom: 2,
+                    right: 2,
+                    child: Container(
+                      width: 14,
+                      height: 14,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
                     ),
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Text(
-            user.name,
-            style: const TextStyle(fontSize: 12),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              user.name,
+              style: const TextStyle(fontSize: 12),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }
